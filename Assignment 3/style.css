@@ -1,0 +1,661 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  overflow-y: scroll;   /* vertical scroll lives on html, not body */
+  overflow-x: hidden;
+  background: #0a0d12;
+  font-family: "Arial Narrow", Arial, sans-serif;
+}
+
+body {
+  width: 100%;
+  position: relative;
+  overflow: hidden;     /* clips the rotated slash divs on all sides */
+  background: #0a0d12;
+  font-family: "Arial Narrow", Arial, sans-serif;
+}
+
+/* ═══════════════════════════════════════════════
+   GLOBAL CONTINUOUS SLASH — two CSS divs
+   Both are position:absolute on <body>, spanning
+   full page height. clip-path gives the diagonal.
+   The band fades from transparent (top/hero area)
+   to solid gold (bottom/section-2 area).
+═══════════════════════════════════════════════ */
+
+/* Dark right-side panel — sits behind the gold band */
+.global-slash-dark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(18, 21, 30, 0.82);
+  /* Triangle: top-right → bottom-right, tapers left */
+  clip-path: polygon(62% 0%, 100% 0%, 100% 100%, 48% 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Gold diagonal band — narrows to a tip at the top,
+   widens toward the bottom. Fades from transparent
+   at the top (hero) to solid gold at the bottom (s2). */
+.global-slash-band {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 92%;
+  /* Diagonal parallelogram: narrow tip at top, wider at bottom */
+  clip-path: polygon(52% 0%, 62% 0%, 50% 100%, 38% 100%);
+  /* Vertical gradient: invisible at top → gold at bottom */
+  background: linear-gradient(
+    to bottom,
+    transparent             0%,
+    transparent            30%,
+    rgba(140, 100, 15, 0.6) 52%,
+    rgba(200, 153, 42, 0.95) 100%
+  );
+  z-index: 11;
+  pointer-events: none;
+  transform: rotate(45deg);
+}
+
+/* ═══════════════════════════════════════════════
+   HERO WRAPPER
+═══════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Bottom fade — masks the hard edge between hero and section 2 */
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 28%;
+  background: linear-gradient(to bottom, transparent 0%, #0a0d12 100%);
+  z-index: 15;          /* above all hero layers */
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════
+   LAYER 1 — BACKGROUND
+═══════════════════════════════════════════════ */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 1;
+  filter: brightness(0.6) saturate(0.85);
+}
+
+/* ═══════════════════════════════════════════════
+   LAYER 2 — DIAGONAL GREY SLASH PANELS
+   Two large semi-transparent dark triangles forming
+   the "X slash" pattern seen in the reference.
+═══════════════════════════════════════════════ */
+.slash-left {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(22, 27, 36, 0.78);
+  clip-path: polygon(0% 0%, 48% 0%, 28% 100%, 0% 100%);
+  pointer-events: none;
+}
+
+/* .slash-right removed — replaced by .global-slash SVG */
+
+/* ═══════════════════════════════════════════════
+   LAYER 3 — EXPLOSION / FIRE
+   Orange explosion sits in the center-bottom area,
+   inside the diamond gap between the two slash panels.
+═══════════════════════════════════════════════ */
+.explosion-layer {
+  position: absolute;
+  z-index: 11;
+  /*
+    The explosion image has its visual "ground blast" roughly
+    at 62% from the top of the image. The soldier's feet sit
+    at bottom: 0 (viewport bottom edge).
+    We raise the explosion so its ground-level band lines up
+    with the soldier's foot position:
+      - Set bottom so the image's lower ~38% hangs below the fold
+      - This places the flat blast-ground at the same Y as the feet
+  */
+  bottom: -38%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 58%;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════
+   LAYER 4 — SOLDIER
+   PNG cutout, centered, bottom-anchored.
+   Sits above explosion but BELOW the title text.
+═══════════════════════════════════════════════ */
+.soldier-layer {
+  position: absolute;
+  z-index: 12;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 92%;
+  width: auto;
+  object-fit: contain;
+  object-position: center bottom;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════
+   LAYER 5 — GIANT TITLE
+   The huge "BATTLEFIELD" text that spans full width.
+   Soldier (z-index 4) is BELOW, so soldier overlaps
+   the lower half of the letters naturally.
+   Title sits at vertical center-bottom.
+═══════════════════════════════════════════════ */
+.title-layer {
+  position: absolute;
+  z-index: 13;
+  /* Vertically position so the text sits at ~55% from top */
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-10%);
+  pointer-events: none;
+}
+
+.hero-title {
+  font-size: clamp(90px, 14.5vw, 175px);
+  font-weight: 900;
+  letter-spacing: -3px;
+  color: #ffffff;
+  text-transform: uppercase;
+  line-height: 0.9;
+  text-align: center;
+  white-space: nowrap;
+  /* Subtle shadow so letters read on both dark panels and bright explosion */
+  text-shadow:
+    0 0 80px rgba(0,0,0,0.4),
+    2px 2px 0px rgba(0,0,0,0.2);
+}
+
+/* ═══════════════════════════════════════════════
+   LAYER 6 — UI OVERLAY
+   All interactive / decorative UI: topbar, buttons,
+   class list. Sits on top of everything.
+═══════════════════════════════════════════════ */
+.ui-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 14;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 36px 36px 36px;
+  pointer-events: none;
+}
+
+/* ─── TOP BAR ─────────────────────────────────── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: all;
+}
+
+.brand {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.menu-btn:hover {
+  opacity: 1;
+}
+
+/* ─── BOTTOM AREA ─────────────────────────────── */
+.bottom-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: all;
+}
+
+/* ─── BOTTOM LEFT ─────────────────────────────── */
+.bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* PLAY NOW button — gold border, transparent bg */
+.play-now-btn {
+  display: inline-block;
+  padding: 10px 28px;
+  border: 1.5px solid #c8992a;
+  background: transparent;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: fit-content;
+  transition: background 0.25s, color 0.25s;
+}
+
+.play-now-btn:hover {
+  background: #c8992a;
+  color: #000;
+}
+
+/* Video row: circle play + dotted progress */
+.video-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.play-circle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.play-circle-btn:hover {
+  opacity: 1;
+}
+
+/* Dotted progress track */
+.progress-track {
+  position: relative;
+  width: 200px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+}
+
+/* Repeating dots via CSS background-image */
+.progress-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(255,255,255,0.45) 0px,
+    rgba(255,255,255,0.45) 3px,
+    transparent 3px,
+    transparent 7px
+  );
+}
+
+.progress-thumb-wrap {
+  position: absolute;
+  left: 38%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.progress-thumb {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.15);
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 2 — THE MUST HAVE GAME
+═══════════════════════════════════════════════ */
+
+/* Scrolling is handled by default block flow — no override needed */
+
+.s2 {
+  position: relative;
+  width: 100%;      /* 100% of body, not 100vw */
+  background: #12151e;
+  overflow: hidden;
+  padding-top: 50px;
+  padding-bottom: 48px;
+}
+
+/* Solid dark bg fill */
+.s2-bg {
+  position: absolute;
+  inset: 0;
+  background: #12151e;
+  z-index: 0;
+}
+
+/* .s2-slash-svg removed — replaced by .global-slash SVG */
+
+/* ── Standing Soldier ────────────────────────── */
+.s2-soldier {
+  position: absolute;
+  left: -1%;
+  bottom: 0;
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  object-position: left bottom;
+  z-index: 12;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%);
+}
+
+/* ── Content block ───────────────────────────── */
+.s2-content {
+  position: relative;
+  z-index: 14;
+  margin-left: 38%;
+  padding: 20px 40px 0 0;
+  max-width: 600px;
+}
+
+/* Dotted SVG connector line */
+.s2-connector {
+  width: 100%;
+  max-width: 380px;
+  height: 70px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.s2-heading {
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.s2-subheading {
+  font-size: clamp(18px, 2.2vw, 28px);
+  font-weight: 900;
+  color: #c8992a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.s2-body {
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.55);
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto 28px auto;
+}
+
+/* ── CTA Row ─────────────────────────────────── */
+.s2-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.s2-watch-btn {
+  padding: 11px 32px;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  background: transparent;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+
+.s2-watch-btn:hover {
+  border-color: #c8992a;
+  background: rgba(200,153,42,0.1);
+}
+
+.s2-social-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.s2-social-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: transparent;
+  color: rgba(255,255,255,0.65);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.s2-social-icon:hover {
+  border-color: #c8992a;
+  color: #c8992a;
+}
+
+.s2-join-text {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: #c8992a;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-left: 4px;
+}
+
+/* ── Trailer Cards Row ───────────────────────── */
+.s2-trailers {
+  position: relative;
+  z-index: 14;
+  display: flex;
+  gap: 0;
+  /* Start after the soldier, end at page edge — no overflow */
+  margin-left: auto;
+  width: 62%;          /* exactly fills the remaining width */
+  margin-top: 24px;
+  overflow: hidden;    /* hard clip — nothing bleeds out */
+}
+
+.s2-trailer-card {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Wide card: 2/3 of the row */
+.s2-trailer-card.wide {
+  width: 66.666%;
+  aspect-ratio: 2 / 1;
+}
+
+/* Narrow card: 1/3 of the row */
+.s2-trailer-card.narrow {
+  width: 33.333%;
+  aspect-ratio: 2 / 1;
+}
+
+.s2-trailer-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  filter: brightness(0.82) saturate(0.9);
+  transition: filter 0.3s;
+}
+
+.s2-trailer-card:hover img {
+  filter: brightness(1) saturate(1);
+}
+
+/* Play button overlay on trailer 1 */
+.s2-trailer-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.s2-trailer-play:hover {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* NEW STORY badge on trailer 2 */
+.s2-new-story-badge {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background: #c8992a;
+  color: #000;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+}
+
+/* ─── CLASS SELECTOR (Bottom Right) ──────────── */
+.class-selector {
+  position: relative;
+  width: 240px;
+  height: 210px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+/* SVG lines that fan out from the Special Force avatar */
+.connector-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.class-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+  /* Shift slightly right so connector lines look correct */
+  padding-right: 8px;
+}
+
+.class-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+/* Small white dot for non-active classes */
+.class-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.class-item:hover .class-dot {
+  background: #c8992a;
+}
+
+.class-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.class-item:hover .class-label {
+  color: #fff;
+}
+
+/* Gold label for Special Force */
+.class-label.gold {
+  color: #c8992a;
+  font-weight: 700;
+}
+
+/* Circular avatar thumbnail for Special Force */
+.class-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid #c8992a;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.class-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 40% 10%;
+  filter: brightness(0.85) saturate(0.9);
+}

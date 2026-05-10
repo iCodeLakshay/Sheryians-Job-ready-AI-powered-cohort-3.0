@@ -1,0 +1,508 @@
+/* =========================================================
+   Loomé — Cotton Weave Product Page
+   Key CSS concepts demonstrated:
+     • position: relative  — establishes a stacking context so
+                             child elements with position: absolute
+                             are offset from THIS element, not <body>
+     • position: absolute  — lifts element out of normal flow;
+                             positioned relative to the nearest
+                             ancestor with position: relative/absolute
+   ========================================================= */
+
+/* ── Reset & base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f4f0eb;
+  color: #2a2a2a;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  background-color: #f4f0eb;
+}
+
+/* Brand wordmark */
+.logo {
+  font-family: "Playfair Display", serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #2a2a2a;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: #2a2a2a;
+}
+
+/* Horizontal nav links */
+.nav-links {
+  display: flex;
+  gap: 36px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  padding-bottom: 4px;
+  transition: color 0.2s;
+}
+
+/* Active nav item has an underline */
+.nav-links a.active {
+  color: #2a2a2a;
+  font-weight: 500;
+  border-bottom: 2px solid #2a2a2a;
+}
+
+.nav-links a:hover {
+  color: #2a2a2a;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ── Cart button with badge ──
+   position: relative on the button so the badge (position: absolute)
+   anchors to the button's top-right corner, not the page. */
+.cart-btn {
+  position: relative;    /* ← stacking context for .cart-badge */
+  color: #2a2a2a;
+  padding: 4px;
+  line-height: 0;
+}
+
+/* Small count badge floated to top-right of cart icon */
+.cart-badge {
+  position: absolute;    /* ← lifted out of flow, sits on top of icon */
+  top: -4px;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #2a2a2a;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hamburger icon — two horizontal lines */
+.menu-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+}
+
+.menu-btn span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #2a2a2a;
+  border-radius: 2px;
+}
+
+/* =========================================================
+   PAGE LAYOUT — three-column grid
+   ========================================================= */
+.page-layout {
+  display: grid;
+  /* Left info  |  Centre card  |  Right thumbnails */
+  grid-template-columns: 360px 1fr 110px;
+  gap: 40px;
+  padding: 28px 48px 48px;
+  align-items: start;
+}
+
+/* =========================================================
+   LEFT COLUMN — product info
+   ========================================================= */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* "NEW COLLECTION" badge with leaf icon */
+.collection-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.leaf-icon {
+  width: 20px;
+  height: 20px;
+  color: #6b7a5e;
+}
+
+/* Large editorial heading */
+.product-title {
+  font-family: "Playfair Display", serif;
+  font-size: 3.6rem;
+  font-weight: 400;
+  line-height: 1.05;
+  color: #1a1a1a;
+}
+
+/* Thin decorative rule under the title */
+.title-divider {
+  width: 36px;
+  border: none;
+  border-top: 2px solid #c8a882;
+  margin: 0;
+}
+
+.product-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: #666;
+  max-width: 280px;
+}
+
+/* Color swatches row */
+.color-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.color-label {
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.swatches {
+  display: flex;
+  gap: 8px;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.swatch.active,
+.swatch:hover {
+  border-color: #2a2a2a;
+}
+
+.swatch--olive { background-color: #6b7a5e; }
+.swatch--sand  { background-color: #d4b896; }
+.swatch--rose  { background-color: #e8919a; }
+
+/* Details section */
+.details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.details-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+/* Short decorative line next to "Details" label */
+.details-line {
+  flex: 0 0 28px;
+  height: 2px;
+  background: #c8a882;
+}
+
+.details-body {
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: #777;
+}
+
+/* Feature badges row */
+.feature-badges {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 4px;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 20px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.badge:first-child {
+  padding-left: 0;
+}
+
+.badge svg {
+  width: 32px;
+  height: 32px;
+  color: #6b7a5e;
+}
+
+/* Vertical divider between badges */
+.badge-divider {
+  width: 1px;
+  height: 48px;
+  background: #d8d0c8;
+}
+
+/* =========================================================
+   CENTER COLUMN — product card
+   ========================================================= */
+.product-card-area {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/*
+  KEY: position: relative on the card
+  This creates the coordinate system that all absolutely-positioned
+  children (price pill, rating pill, vertical label, add-to-bag button)
+  will use for their top/bottom/left/right offsets.
+*/
+.product-card {
+  position: relative;           /* ← stacking context for overlays */
+  border-radius: 20px;
+  overflow: hidden;             /* clips image and child elements to rounded corners */
+  background: #e8e0d8;
+}
+
+/* Full-bleed product image */
+.product-img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* ── Price pill — top-left overlay ──
+   position: absolute removes it from flow; top/left pins it
+   to the card's top-left corner (the nearest relative ancestor). */
+.price-pill {
+  position: absolute;          /* ← floats above the image */
+  top: 18px;
+  left: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #2a2a2a;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* ── Rating pill — top-right overlay ──
+   Mirrors the price pill but anchored to top-right. */
+.rating-pill {
+  position: absolute;          /* ← floats above the image */
+  top: 18px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  padding: 8px 16px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #2a2a2a;
+  font-weight: 500;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.stars {
+  color: #c8a350;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+}
+
+/* ── Vertical label — left-edge text ──
+   position: absolute + writing-mode creates the rotated vertical text.
+   It is anchored to the card's coordinate system (nearest relative ancestor)
+   and placed just outside the left edge of the card. */
+.vertical-label {
+  position: absolute;          /* ← floats outside the image, left side */
+  right: calc(100% + 14px);   /* places label to the left of the card */
+  top: 55%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;   /* text flows top → bottom */
+  text-orientation: mixed;
+  transform: translateY(-50%) rotate(180deg); /* flip so text reads bottom → top */
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: #666;
+  white-space: nowrap;
+}
+
+/* ── Add to bag — bottom-right circular CTA ──
+   position: absolute anchors it to the bottom-right corner of the card. */
+.add-to-bag {
+  position: absolute;          /* ← floats above the image */
+  bottom: 20px;
+  right: 20px;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background-color: #6b7a5e;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(107, 122, 94, 0.45);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.add-to-bag:hover {
+  background-color: #58664d;
+  transform: scale(1.05);
+}
+
+/* ── Trust bar ── */
+.trust-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 18px 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trust-item svg {
+  color: #6b7a5e;
+  flex-shrink: 0;
+}
+
+.trust-item div {
+  display: flex;
+  flex-direction: column;
+}
+
+.trust-item strong {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #2a2a2a;
+}
+
+.trust-item span {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* =========================================================
+   RIGHT COLUMN — thumbnail gallery
+   ========================================================= */
+.thumbnail-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+/*
+  Each thumbnail uses position: relative so we can use an
+  ::after pseudo-element (position: absolute) to draw the
+  active-state border ring without affecting layout.
+*/
+.thumb {
+  position: relative;          /* ← stacking context for active outline */
+  border-radius: 14px;
+  overflow: hidden;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Active border ring drawn as an absolutely-positioned pseudo-element */
+.thumb.active::after {
+  content: "";
+  position: absolute;          /* ← overlays the thumbnail, inside .thumb */
+  inset: 0;                    /* shorthand for top:0; right:0; bottom:0; left:0 */
+  border: 2.5px solid #2a2a2a;
+  border-radius: 14px;
+  pointer-events: none;        /* does not block clicks */
+}
+
+.thumb:hover {
+  opacity: 0.85;
+}

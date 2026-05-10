@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loomé — A Cotton Weave</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Google Fonts: Playfair Display for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+      <a href="#" class="logo">loomé<span>.</span></a>
+
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <!-- "Shop" is the active/underlined link -->
+        <li><a href="#" class="active">Shop</a></li>
+        <li><a href="#">Collection</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Cart icon with an absolute-positioned badge count -->
+        <button class="cart-btn" aria-label="Cart">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <!-- Badge is positioned absolutely relative to .cart-btn -->
+          <span class="cart-badge">2</span>
+        </button>
+
+        <button class="menu-btn" aria-label="Menu">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ===== MAIN LAYOUT ===== -->
+    <main class="page-layout">
+
+      <!-- ── LEFT COLUMN: product info ── -->
+      <section class="product-info">
+
+        <!-- Collection label with leaf icon -->
+        <div class="collection-label">
+          <!-- Simple SVG leaf -->
+          <svg class="leaf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 22V12M12 12C12 7 7 3 2 3c0 5 4 9 10 9zM12 12c0-5 5-9 10-9-1 6-5 9-10 9z"/>
+          </svg>
+          <span>NEW COLLECTION</span>
+        </div>
+
+        <h1 class="product-title">a cotton<br />weave</h1>
+        <hr class="title-divider" />
+
+        <p class="product-desc">
+          Crafted from 100% organic cotton with a soft, breathable feel. Perfect for all
+          seasons and everyday elegance.
+        </p>
+
+        <!-- Color swatches -->
+        <div class="color-row">
+          <span class="color-label">colors</span>
+          <div class="swatches">
+            <button class="swatch swatch--olive active" aria-label="Olive"></button>
+            <button class="swatch swatch--sand"  aria-label="Sand"></button>
+            <button class="swatch swatch--rose"  aria-label="Rose"></button>
+          </div>
+        </div>
+
+        <!-- Details accordion-style section -->
+        <div class="details-section">
+          <div class="details-header">
+            <strong>Details</strong>
+            <span class="details-line"></span>
+          </div>
+          <p class="details-body">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, sapiente.
+            Ipsam maiores nemo, quidem veniam et atque suscipit, saepe doloribus ab
+            molestiae deserunt? Totam natus eligendi neque.
+          </p>
+        </div>
+
+        <!-- Feature badges -->
+        <div class="feature-badges">
+          <div class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22C6 22 2 16 2 12 8 12 12 8 12 2c0 6 4 10 10 10-1 5-5 10-10 10z"/>
+            </svg>
+            <span>Organic<br />Cotton</span>
+          </div>
+          <div class="badge-divider"></div>
+          <div class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22C6 22 2 16 2 12 8 12 12 8 12 2c0 6 4 10 10 10-1 5-5 10-10 10z"/>
+              <path d="M8 12h8M12 8v8"/>
+            </svg>
+            <span>Soft &amp;<br />Lightweight</span>
+          </div>
+          <div class="badge-divider"></div>
+          <div class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M9 3v18M15 3v18M3 9h18M3 15h18"/>
+            </svg>
+            <span>Handmade<br />Weave</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CENTER COLUMN: product card ── -->
+      <section class="product-card-area">
+
+        <!--
+          .product-card uses position: relative so that child elements
+          ($488 pill, Rating pill, "Add to bag" circle, vertical text)
+          can be positioned absolutely on top of the image.
+        -->
+        <article class="product-card">
+
+          <!-- Main product image -->
+          <img
+            class="product-img"
+            src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80"
+            alt="Woman wearing a cotton weave scarf in a snowy city"
+          />
+
+          <!-- Price pill — top-left, absolutely positioned -->
+          <div class="price-pill">$488</div>
+
+          <!-- Rating pill — top-right, absolutely positioned -->
+          <div class="rating-pill">
+            Rating
+            <span class="stars" aria-label="4 out of 5 stars">★★★★☆</span>
+          </div>
+
+          <!--
+            Vertical product-type label on the left edge.
+            Uses position: absolute + writing-mode for the rotated text.
+          -->
+          <span class="vertical-label">cotton twill scarf</span>
+
+          <!-- "Add to bag" circular CTA — bottom-right, absolutely positioned -->
+          <button class="add-to-bag" aria-label="Add to bag">
+            <svg width="22" height="22" fill="none" stroke="white" stroke-width="1.8" viewBox="0 0 24 24">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span>Add to bag</span>
+          </button>
+        </article>
+
+        <!-- Trust bar below the product card -->
+        <div class="trust-bar">
+          <div class="trust-item">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+            <div>
+              <strong>Secure</strong>
+              <span>Payment</span>
+            </div>
+          </div>
+
+          <div class="trust-item">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="1" y="3" width="15" height="13" rx="1"/>
+              <path d="M16 8h4l3 5v3h-7V8zM5.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM18.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+            </svg>
+            <div>
+              <strong>Free Shipping</strong>
+              <span>Over $100</span>
+            </div>
+          </div>
+
+          <div class="trust-item">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <polyline points="1 4 1 10 7 10"/>
+              <polyline points="23 20 23 14 17 14"/>
+              <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/>
+            </svg>
+            <div>
+              <strong>Easy Returns</strong>
+              <span>30 Days</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── RIGHT COLUMN: thumbnail gallery ── -->
+      <aside class="thumbnail-gallery">
+        <!--
+          Each thumbnail uses position: relative so the active border
+          outline is rendered relative to the thumbnail frame.
+        -->
+        <button class="thumb active" aria-label="View model photo">
+          <img
+            src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=120&q=70"
+            alt="Model in winter scarf"
+          />
+        </button>
+        <button class="thumb" aria-label="View fabric close-up">
+          <img
+            src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=120&q=70"
+            alt="Beige fabric close-up"
+          />
+        </button>
+        <button class="thumb" aria-label="View label detail">
+          <img
+            src="https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=120&q=70"
+            alt="Fabric label detail"
+          />
+        </button>
+        <button class="thumb" aria-label="View cotton plant">
+          <img
+            src="https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?w=120&q=70"
+            alt="Cotton plant"
+          />
+        </button>
+      </aside>
+
+    </main>
+  </body>
+</html>

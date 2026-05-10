@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battlefield</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <!-- Continuous diagonal slash: dark panel + gold band via CSS -->
+    <div class="global-slash-dark"></div>
+    <div class="global-slash-band"></div>
+
+    <section class="hero">
+
+      <!-- Layer 1: Dark background -->
+      <img src="images/hero-background.jpg" alt="" class="bg-layer" />
+
+      <!-- Layer 2: Dark left vignette panel (the global slash handles right side) -->
+      <div class="slash-left"></div>
+
+      <!-- Layer 3: Explosion (orange fire triangle, center-bottom) -->
+      <img src="images/explosion-hero-image.png" alt="" class="explosion-layer" />
+
+      <!-- Layer 4: Soldier PNG (center, above explosion, behind title) -->
+      <img src="images/sprint-soldier-hero.png" alt="Soldier" class="soldier-layer" />
+
+      <!-- Layer 5: Giant BATTLEFIELD title (soldier punches through via z-index) -->
+      <div class="title-layer">
+        <h1 class="hero-title">BATTLEFIELD</h1>
+      </div>
+
+      <!-- Layer 6: All UI elements -->
+      <div class="ui-layer">
+
+        <!-- Top Bar -->
+        <header class="topbar">
+          <span class="brand">BATTLEFIELD</span>
+          <button class="menu-btn" aria-label="Open menu">
+            <!-- Hamburger: RiMenu3Line equivalent -->
+            <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="1" x2="24" y2="1" stroke="white" stroke-width="2"/>
+              <line x1="0" y1="9" x2="24" y2="9" stroke="white" stroke-width="2"/>
+              <line x1="0" y1="17" x2="24" y2="17" stroke="white" stroke-width="2"/>
+            </svg>
+          </button>
+        </header>
+
+        <!-- Bottom area -->
+        <div class="bottom-area">
+
+          <!-- Bottom Left: CTA + Video controls -->
+          <div class="bottom-left">
+            <button class="play-now-btn">PLAY NOW</button>
+
+            <div class="video-row">
+              <!-- Play button circle: IoPlayCircleOutline equivalent -->
+              <button class="play-circle-btn" aria-label="Play trailer">
+                <svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="20" cy="20" r="18" stroke="white" stroke-width="1.5" fill="none"/>
+                  <polygon points="16,13 28,20 16,27" fill="white"/>
+                </svg>
+              </button>
+
+              <!-- Dotted progress bar -->
+              <div class="progress-track">
+                <div class="progress-dots"></div>
+                <div class="progress-thumb-wrap">
+                  <div class="progress-thumb"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Right: Class selector with lines -->
+          <div class="class-selector">
+            <!-- SVG connector lines -->
+            <svg class="connector-svg" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+              <!-- Lines from a focal point (bottom-left of svg) to each class dot -->
+              <line x1="60" y1="195" x2="155" y2="22"  stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+              <line x1="60" y1="195" x2="165" y2="62"  stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+              <line x1="60" y1="195" x2="170" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+              <line x1="60" y1="195" x2="168" y2="135" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+              <line x1="60" y1="195" x2="155" y2="170" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+            </svg>
+
+            <div class="class-list">
+              <div class="class-item">
+                <span class="class-dot"></span>
+                <span class="class-label">RECON</span>
+              </div>
+              <div class="class-item">
+                <span class="class-dot"></span>
+                <span class="class-label">ENGINEER</span>
+              </div>
+              <div class="class-item">
+                <span class="class-dot"></span>
+                <span class="class-label">SUPPORT</span>
+              </div>
+              <div class="class-item">
+                <span class="class-dot"></span>
+                <span class="class-label">ASSAULT</span>
+              </div>
+              <div class="class-item active">
+                <span class="class-avatar">
+                  <img src="images/sprint-soldier-hero.png" alt="Special Force" />
+                </span>
+                <span class="class-label gold">SPECIAL FORCE</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 2 — THE MUST HAVE GAME
+    ════════════════════════════════════════════ -->
+    <section class="s2">
+
+      <!-- Dark background fill -->
+      <div class="s2-bg"></div>
+
+      <!-- Slash art is handled by the global .global-slash SVG above both sections -->
+
+      <!-- Standing Soldier — bleeds upward out of section -->
+      <img src="images/standing-soldier-sect-2.png" alt="Soldier" class="s2-soldier" />
+
+      <!-- Right content block -->
+      <div class="s2-content">
+
+        <!-- Dotted curved line art (soldier to content) -->
+        <svg class="s2-connector" viewBox="0 0 420 90" xmlns="http://www.w3.org/2000/svg">
+          <!-- Dotted path from left (near soldier) curving down to thumb circle -->
+          <path
+            d="M 0 28 C 80 28, 200 28, 280 62 L 400 62"
+            fill="none"
+            stroke="rgba(255,255,255,0.35)"
+            stroke-width="1"
+            stroke-dasharray="3 5"
+          />
+          <!-- End circle / thumb -->
+          <circle cx="400" cy="62" r="5" fill="none" stroke="rgba(200,153,42,0.8)" stroke-width="1.5"/>
+          <circle cx="400" cy="62" r="2" fill="rgba(200,153,42,0.9)"/>
+          <!-- Start dot -->
+          <circle cx="0" cy="28" r="3.5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.2"/>
+        </svg>
+
+        <h2 class="s2-heading">THE MUST HAVE GAME</h2>
+        <h3 class="s2-subheading">2018.APRIL SUMMER</h3>
+
+        <p class="s2-body">
+          Stay up to date for chances to claim free expansions and collect
+          special gear while playing Battlefield 1 and Battlefield 4. Take the fight
+          to unexpected but crucial moments of the war, as Battlefield goes
+          back to where it all began.
+        </p>
+
+        <!-- CTA row -->
+        <div class="s2-cta-row">
+          <button class="s2-watch-btn">WATCH TRAILER</button>
+
+          <div class="s2-social-row">
+            <!-- Play / Twitch icon -->
+            <button class="s2-social-icon" aria-label="Watch">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" stroke="none"/>
+              </svg>
+            </button>
+            <!-- Facebook -->
+            <button class="s2-social-icon" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+              </svg>
+            </button>
+            <!-- YouTube -->
+            <button class="s2-social-icon" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
+                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a1d24"/>
+              </svg>
+            </button>
+            <!-- Twitter / X -->
+            <button class="s2-social-icon" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+              </svg>
+            </button>
+
+            <span class="s2-join-text">JOIN THE CONVERSATION</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Trailer Cards Row -->
+      <div class="s2-trailers">
+
+        <!-- Trailer 1 — wide card with play button -->
+        <div class="s2-trailer-card wide">
+          <img src="images/trailer-1.png" alt="Trailer 1" />
+          <!-- Play circle overlay -->
+          <button class="s2-trailer-play" aria-label="Play trailer">
+            <svg viewBox="0 0 52 52" width="52" height="52" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="26" cy="26" r="24" fill="rgba(0,0,0,0.35)" stroke="rgba(200,153,42,0.9)" stroke-width="1.5"/>
+              <polygon points="21,17 37,26 21,35" fill="#c8992a"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Trailer 2 — narrower card with NEW STORY badge -->
+        <div class="s2-trailer-card narrow">
+          <img src="images/trailer-2.png" alt="Trailer 2" />
+          <span class="s2-new-story-badge">NEW STORY</span>
+        </div>
+
+      </div>
+
+    </section>
+  </body>
+</html>
