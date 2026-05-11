@@ -8,10 +8,6 @@
   </head>
   <body>
 
-    <!-- Continuous diagonal slash: dark panel + gold band via CSS -->
-    <div class="global-slash-dark"></div>
-    <div class="global-slash-band"></div>
-
     <section class="hero">
 
       <!-- Layer 1: Dark background -->
@@ -124,7 +120,9 @@
       <!-- Dark background fill -->
       <div class="s2-bg"></div>
 
-      <!-- Slash art is handled by the global .global-slash SVG above both sections -->
+      <!-- Diagonal slash overlays — scoped inside s2 so they don't bleed into s3 -->
+      <div class="global-slash-dark"></div>
+      <div class="global-slash-band"></div>
 
       <!-- Standing Soldier — bleeds upward out of section -->
       <img src="images/standing-soldier-sect-2.png" alt="Soldier" class="s2-soldier" />
@@ -217,6 +215,94 @@
           <span class="s2-new-story-badge">NEW STORY</span>
         </div>
 
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 3 — RELEASE DATES / CUSTOMIZE YOUR SOLDIERS
+    ════════════════════════════════════════════════ -->
+    <section class="s3">
+
+      <!-- Dark background -->
+      <div class="s3-bg"></div>
+
+      <!-- Top date header bar -->
+      <div class="s3-dates">
+        <div class="s3-date-col">
+          <h2 class="s3-date-month">SEPTEMBER <span class="s3-date-year">2018</span></h2>
+          <p class="s3-date-label">PLAY FIRST ON</p>
+          <p class="s3-date-platform">XBOX</p>
+        </div>
+
+        <!-- Vertical divider -->
+        <div class="s3-divider"></div>
+
+        <div class="s3-date-col">
+          <h2 class="s3-date-month">DECEMBER <span class="s3-date-year">2018</span></h2>
+          <p class="s3-date-label">COME TO ALL PLATFORMS</p>
+          <p class="s3-date-platform">PS4 – PC</p>
+        </div>
+      </div>
+
+      <!-- Dotted line across top -->
+      <div class="s3-topline">
+        <svg width="100%" height="8" viewBox="0 0 1000 8" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="4" x2="1000" y2="4" stroke="rgba(255,255,255,0.18)" stroke-width="1" stroke-dasharray="4 6"/>
+        </svg>
+        <!-- Two dot markers -->
+        <span class="s3-topline-dot left"></span>
+        <span class="s3-topline-dot right"></span>
+      </div>
+
+      <!-- Main content row: left panel + soldier + right panel -->
+      <div class="s3-content-row">
+
+        <!-- Left panel -->
+        <div class="s3-panel s3-panel-left">
+          <h3 class="s3-panel-title">CUSTOMIZE YOUR SOLDIERS</h3>
+          <div class="s3-panel-rule"></div>
+          <p class="s3-panel-body">
+            Your journey through the world of Battlefield V starts
+            with your Company – where every soldier is unique.
+            Create and customize soldiers, weapons and
+            vehicles, from the way they look to how they play.
+          </p>
+          <p class="s3-panel-body s3-panel-body--gap">
+            Game set in the United States after the outbreak of the
+            plague, the player as "throughout the blockade" plan
+            of the troops. In the "Black Friday" after the United
+            States looking for a slim chane of survival
+          </p>
+          <button class="s3-full-story-btn">FULL STORY</button>
+        </div>
+
+        <!-- Center soldier on gold slab -->
+        <div class="s3-soldier-wrap">
+          <div class="s3-gold-slab"></div>
+          <img src="images/standing-soldier-sect-3.png" alt="Soldier" class="s3-soldier" />
+        </div>
+
+        <!-- Right panel -->
+        <div class="s3-panel s3-panel-right">
+          <h3 class="s3-panel-title">NEVER BE THE SAME</h3>
+          <div class="s3-panel-rule"></div>
+          <p class="s3-panel-body">
+            The most intense, immersive Battlefield yet. Every
+            battle is different. Every soldier is unique. Every story
+            is untold. Find out everything you want to know about
+            Battlefield V's maps, modes, and exciting new details
+            on single-player and multiplayer.
+          </p>
+          <button class="s3-full-story-btn">FULL STORY</button>
+        </div>
+
+      </div>
+
+      <!-- Bottom dot markers -->
+      <div class="s3-bottomline">
+        <span class="s3-bottomline-dot left"></span>
+        <span class="s3-bottomline-dot right"></span>
       </div>
 
     </section>

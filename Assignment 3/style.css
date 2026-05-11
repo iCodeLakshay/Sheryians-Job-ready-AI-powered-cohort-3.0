@@ -28,42 +28,38 @@ body {
    to solid gold (bottom/section-2 area).
 ═══════════════════════════════════════════════ */
 
-/* Dark right-side panel — sits behind the gold band */
+/* Dark right-side panel — position:absolute inside .s2 which has overflow:hidden,
+   so it can't bleed into s3. top: -100vh reaches up into the hero section. */
 .global-slash-dark {
   position: absolute;
-  top: 0;
+  top: -100vh;
   right: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 100vh);
   background: rgba(18, 21, 30, 0.82);
-  /* Triangle: top-right → bottom-right, tapers left */
   clip-path: polygon(62% 0%, 100% 0%, 100% 100%, 48% 100%);
   z-index: 10;
   pointer-events: none;
 }
 
-/* Gold diagonal band — narrows to a tip at the top,
-   widens toward the bottom. Fades from transparent
-   at the top (hero) to solid gold at the bottom (s2). */
+/* Gold diagonal band — no rotation, pure clip-path, no edge artifacts. */
 .global-slash-band {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -100vh;
+  left: 0;
   width: 100%;
-  height: 92%;
-  /* Diagonal parallelogram: narrow tip at top, wider at bottom */
-  clip-path: polygon(52% 0%, 62% 0%, 50% 100%, 38% 100%);
-  /* Vertical gradient: invisible at top → gold at bottom */
+  height: calc(100% + 100vh);
+  clip-path: polygon(48% 0%, 62% 0%, 48% 100%, 34% 100%);
   background: linear-gradient(
     to bottom,
-    transparent             0%,
-    transparent            30%,
-    rgba(140, 100, 15, 0.6) 52%,
-    rgba(200, 153, 42, 0.95) 100%
+    transparent              0%,
+    transparent             40%,
+    rgba(140, 100, 15, 0.55) 60%,
+    rgba(200, 153, 42, 0.95) 75%,
+    rgba(200, 153, 42, 0.0)  100%
   );
   z-index: 11;
   pointer-events: none;
-  transform: rotate(45deg);
 }
 
 /* ═══════════════════════════════════════════════
@@ -659,3 +655,228 @@ body {
   object-position: 40% 10%;
   filter: brightness(0.85) saturate(0.9);
 }
+
+/* ═══════════════════════════════════════════════
+   SECTION 3 — RELEASE DATES / CUSTOMIZE YOUR SOLDIERS
+═══════════════════════════════════════════════ */
+.s3 {
+  position: relative;
+  width: 100%;
+  background: #0e1118;
+  overflow: hidden;
+  padding: 0 0 60px 0;
+}
+
+.s3-bg {
+  position: absolute;
+  inset: 0;
+  background: #0e1118;
+  z-index: 0;
+}
+
+/* ── Date header bar ─────────────────────────── */
+.s3-dates {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding: 40px 60px 28px 60px;
+}
+
+.s3-date-col {
+  flex: 1;
+  text-align: center;
+}
+
+.s3-date-month {
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.s3-date-year {
+  color: #c8992a;
+}
+
+.s3-date-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.s3-date-platform {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #c8992a;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Vertical divider between date columns */
+.s3-divider {
+  width: 1px;
+  height: 110px;
+  background: rgba(255,255,255,0.2);
+  align-self: center;
+  flex-shrink: 0;
+  margin: 0 40px;
+}
+
+/* ── Dotted top line with dot markers ─────────── */
+.s3-topline {
+  position: relative;
+  z-index: 2;
+  margin: 0 60px;
+}
+
+.s3-topline-dot {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  background: transparent;
+}
+
+.s3-topline-dot.left  { left: 30%; }
+.s3-topline-dot.right { right: 30%; }
+
+/* ── Main content row ────────────────────────── */
+.s3-content-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0;
+  padding: 40px 40px 20px 40px;
+  min-height: 340px;
+}
+
+/* ── Panels ──────────────────────────────────── */
+.s3-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px 30px;
+  background: rgba(18, 22, 32, 0.92);
+  max-width: 380px;
+}
+
+.s3-panel-left  { align-items: flex-start; }
+.s3-panel-right { align-items: flex-start; }
+
+.s3-panel-title {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.s3-panel-rule {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.12);
+  margin-bottom: 16px;
+}
+
+.s3-panel-body {
+  font-size: 11px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 14px;
+}
+
+.s3-panel-body--gap {
+  margin-top: 6px;
+}
+
+.s3-full-story-btn {
+  margin-top: auto;
+  padding: 9px 26px;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  background: transparent;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.s3-full-story-btn:hover {
+  border-color: #c8992a;
+  background: rgba(200,153,42,0.08);
+}
+
+/* ── Center soldier wrap ─────────────────────── */
+.s3-soldier-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 220px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* Gold/yellow vertical slab behind the soldier */
+.s3-gold-slab {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 85%;
+  background: #c8992a;
+  z-index: 0;
+}
+
+/* Soldier image — overlaps the slab and bleeds above */
+.s3-soldier {
+  position: relative;
+  z-index: 1;
+  height: 420px;
+  width: auto;
+  object-fit: contain;
+  object-position: center bottom;
+  margin-bottom: -20px;
+  filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7));
+}
+
+/* ── Bottom dot markers ───────────────────────── */
+.s3-bottomline {
+  position: relative;
+  z-index: 2;
+  margin: 0 60px;
+  height: 8px;
+}
+
+.s3-bottomline-dot {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  background: transparent;
+}
+
+.s3-bottomline-dot.left  { left: 30%; }
+.s3-bottomline-dot.right { right: 30%; }
