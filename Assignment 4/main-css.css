@@ -217,7 +217,7 @@ body {
 
 /* ─── DIV2: AGENCY DARK CARD ────────────────────────────────── */
 .agency-section {
-    background: var(--dark);
+    background: #29292a;
     border-radius: var(--radius);
     padding: 22px;
     color: #fff;
