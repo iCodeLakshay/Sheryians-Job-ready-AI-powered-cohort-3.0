@@ -12,6 +12,31 @@
 </head>
 
 <body>
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-overlay" aria-hidden="true"></div>
+  <nav class="mobile-nav-drawer" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="mobile-nav-drawer__header">
+      <a href="/" class="logo" aria-label="Two Leaves and a Bud home">
+        <img src="./assets/Twoleaves_logo.svg" alt="Two Leaves and a Bud" width="120" height="34" />
+      </a>
+      <button class="mobile-nav-close" aria-label="Close menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="mobile-nav-drawer__links">
+      <a href="#" class="mobile-nav-link">Shop</a>
+      <a href="#" class="mobile-nav-link">Learn</a>
+      <a href="#" class="mobile-nav-link">Reviews</a>
+      <a href="#" class="mobile-nav-link">My Account</a>
+      <a href="#" class="mobile-nav-link">Cafe &amp; Wholesale</a>
+      <a href="#" class="mobile-nav-link">Tea Journal</a>
+    </div>
+  </nav>
+
   <div class="announcement-bar">
     <span>Free US shipping for orders over $75</span>
   </div>
@@ -808,6 +833,30 @@
   </footer>
 
   <script>
+    // Mobile Navigation Drawer
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileNavDrawer = document.querySelector('.mobile-nav-drawer');
+    const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+    const mobileNavClose = document.querySelector('.mobile-nav-close');
+
+    function openMobileNav() {
+      mobileNavDrawer.classList.add('is-open');
+      mobileNavOverlay.classList.add('is-open');
+      mobileNavDrawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileNav() {
+      mobileNavDrawer.classList.remove('is-open');
+      mobileNavOverlay.classList.remove('is-open');
+      mobileNavDrawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    mobileMenuBtn?.addEventListener('click', openMobileNav);
+    mobileNavClose?.addEventListener('click', closeMobileNav);
+    mobileNavOverlay?.addEventListener('click', closeMobileNav);
+
     const scrollButton = document.querySelector(".hero-accent");
 
     scrollButton?.addEventListener("click", () => {
