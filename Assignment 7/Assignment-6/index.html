@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AetherTask - A minimalist task management application and DOM API exploration lab.">
+  <title>AetherTask // Minimalist Task Board & DOM Laboratory</title>
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body data-theme="light">
+  
+  <div class="app-wrapper">
+    <!-- Clean Header -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="logo-icon"><i class="fa-solid fa-code"></i></span>
+        <div class="brand-text">
+          <h1>AetherTask</h1>
+          <span class="badge badge-outline">DOM Assignment Lab</span>
+        </div>
+      </div>
+      
+      <!-- Counters & Progress -->
+      <div class="stats-panel">
+        <div class="stat-group">
+          <span class="stat-num" id="pending-count">0</span>
+          <span class="stat-label">Pending</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-group">
+          <span class="stat-num" id="completed-count">0</span>
+          <span class="stat-label">Completed</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="task-progress" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <!-- Minimal Theme Toggle -->
+      <button id="theme-toggle-btn" class="btn btn-outline btn-theme" aria-label="Toggle Theme">
+        <i class="theme-icon fa-solid fa-moon"></i>
+        <span class="theme-text">Dark Mode</span>
+      </button>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="app-layout">
+      
+      <!-- Left Panel: Control / Creation -->
+      <aside class="sidebar">
+        <section class="panel">
+          <h2 class="panel-title">Task Factory</h2>
+          <form id="task-form" class="task-form">
+            <div class="form-group">
+              <label for="task-title-input">Task Title</label>
+              <input type="text" id="task-title-input" placeholder="e.g., Review rendering pipeline" required autocomplete="off">
+            </div>
+            
+            <div class="form-group">
+              <label for="task-category-select">Category</label>
+              <select id="task-category-select">
+                <option value="work">Work</option>
+                <option value="personal">Personal</option>
+                <option value="learning">Learning</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+            
+            <button type="submit" id="add-task-btn" class="btn btn-solid">
+              <i class="fa-solid fa-plus"></i> Create Task
+            </button>
+          </form>
+        </section>
+
+        <section class="panel filter-panel">
+          <h2 class="panel-title">Filter & Search</h2>
+          
+          <div class="search-wrap">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="task-search-input" placeholder="Search tasks..." autocomplete="off">
+          </div>
+          
+          <div class="filter-group">
+            <span class="group-label">Category Filters</span>
+            <div class="filter-pills">
+              <button class="pill active" data-filter="all">All</button>
+              <button class="pill" data-filter="work">Work</button>
+              <button class="pill" data-filter="personal">Personal</button>
+              <button class="pill" data-filter="learning">Learning</button>
+              <button class="pill" data-filter="urgent">Urgent</button>
+            </div>
+          </div>
+
+          <button id="clear-all-btn" class="btn btn-outline btn-danger">
+            <i class="fa-solid fa-trash-can"></i> Clear Completed Tasks
+          </button>
+        </section>
+      </aside>
+
+      <!-- Right Panel: Task List Board -->
+      <section class="main-content">
+        <div class="panel board-panel">
+          <div class="board-header">
+            <h2 class="panel-title">Task Board</h2>
+            <span id="filter-indicator" class="badge badge-gray">Showing All</span>
+          </div>
+          
+          <div id="task-list" class="task-list">
+            <!-- Dynamic elements go here -->
+            <div class="empty-state" id="empty-state">
+              <p>No tasks found. Use the factory to add dynamic task cards.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Interactive Labs Playground -->
+    <section class="labs-section">
+      <div class="labs-header">
+        <h2>🔬 DOM Exploration Laboratories</h2>
+        <p>Inspect default browser API behaviors, properties, and propagation rules.</p>
+      </div>
+
+      <div class="labs-layout">
+        <!-- Lab 1: Attributes vs Properties -->
+        <article class="panel lab-panel">
+          <div class="lab-tag">Lab 01</div>
+          <h3 class="lab-title">Attributes vs Properties</h3>
+          <p class="lab-description">
+            HTML Attributes represent the source document's initial state. DOM Properties represent the live state of elements in browser memory.
+          </p>
+
+          <div class="lab-body">
+            <div class="form-group">
+              <label for="inspect-input">Inspect Input Binding:</label>
+              <input type="text" id="inspect-input" value="Initial HTML Value" class="inspect-input">
+            </div>
+
+            <div class="inspection-compare">
+              <div class="inspect-card">
+                <span class="code-label">Property: <code>input.value</code></span>
+                <div id="prop-output" class="console-output">"Initial HTML Value"</div>
+                <span class="explain-sub">Live DOM state in memory (updates instantly as you type).</span>
+              </div>
+              
+              <div class="inspect-card">
+                <span class="code-label">Attribute: <code>input.getAttribute("value")</code></span>
+                <div id="attr-output" class="console-output">"Initial HTML Value"</div>
+                <span class="explain-sub">Original HTML markup configuration (stays constant unless setAttribute called).</span>
+              </div>
+            </div>
+
+            <div class="btn-group">
+              <button id="set-attr-btn" class="btn btn-outline btn-sm">
+                Run <code>setAttribute("value", "Updated!")</code>
+              </button>
+              <button id="reset-inspect-btn" class="btn btn-outline btn-sm btn-muted">Reset</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Lab 2: Event Propagation Sandbox -->
+        <article class="panel lab-panel">
+          <div class="lab-tag">Lab 02</div>
+          <h3 class="lab-title">Event Propagation</h3>
+          <p class="lab-description">
+            Toggle between Capturing (events trickle down from root) and Bubbling (events rise from target). Click the child button to trigger the propagation chain.
+          </p>
+
+          <div class="lab-body">
+            <div class="propagation-controls">
+              <span class="control-label">Propagation Mode:</span>
+              <div class="btn-group">
+                <button id="mode-bubble-btn" class="btn btn-sm btn-toggle active">Bubbling</button>
+                <button id="mode-capture-btn" class="btn btn-sm btn-toggle">Capturing</button>
+              </div>
+            </div>
+
+            <!-- Visualization Nesting -->
+            <div class="prop-sandbox">
+              <div id="gp-node" class="prop-box gp-box">
+                <span class="box-tag">Grandparent</span>
+                
+                <div id="parent-node" class="prop-box parent-box">
+                  <span class="box-tag">Parent</span>
+                  
+                  <button id="child-node" class="btn btn-solid btn-sm child-btn">
+                    Click to Propagate
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Logger -->
+            <div class="log-panel">
+              <div class="log-header">
+                <span><i class="fa-solid fa-terminal"></i> Log Output</span>
+                <button id="clear-console-btn" class="btn-link">Clear</button>
+              </div>
+              <div id="console-logs" class="console-logs">
+                <div class="log-placeholder">Trigger propagation above...</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Lab 3: Render Pipeline Visualizer -->
+      <article class="panel lab-panel full-width">
+        <div class="lab-tag">Lab 03</div>
+        <h3 class="lab-title">Browser Rendering Pipeline</h3>
+        <p class="lab-description">
+          Click on any block in the pipeline below to inspect how the browser structures, styles, layouts, and paints nodes.
+        </p>
+
+        <div class="pipeline-visualizer">
+          <div class="pipeline-track">
+            <!-- Nodes -->
+            <div class="pipeline-step" data-step="html">
+              <span class="step-num">1a</span>
+              <span class="step-title">HTML Input</span>
+            </div>
+            
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            
+            <div class="pipeline-step" data-step="tokenization">
+              <span class="step-num">2a</span>
+              <span class="step-title">Tokenization</span>
+            </div>
+            
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            
+            <div class="pipeline-step" data-step="parsing">
+              <span class="step-num">3a</span>
+              <span class="step-title">HTML Parsing</span>
+            </div>
+            
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            
+            <div class="pipeline-step" data-step="dom">
+              <span class="step-num">4a</span>
+              <span class="step-title">DOM Tree</span>
+            </div>
+          </div>
+
+          <div class="pipeline-merge">
+            <div class="merge-line"></div>
+            <div class="merge-node"><i class="fa-solid fa-plus"></i></div>
+          </div>
+
+          <div class="pipeline-track css-side">
+            <div class="pipeline-step" data-step="css">
+              <span class="step-num">1b</span>
+              <span class="step-title">CSS Input</span>
+            </div>
+            
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            
+            <div class="pipeline-step" data-step="cssparsing">
+              <span class="step-num">2b</span>
+              <span class="step-title">Parsing</span>
+            </div>
+            
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            
+            <div class="pipeline-step" data-step="cssrules">
+              <span class="step-num">3b</span>
+              <span class="step-title">Style Rules</span>
+            </div>
+            
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            
+            <div class="pipeline-step" data-step="cssom">
+              <span class="step-num">4b</span>
+              <span class="step-title">CSSOM Tree</span>
+            </div>
+          </div>
+
+          <div class="pipeline-track center-side">
+            <div class="pipeline-step" data-step="rendertree">
+              <span class="step-num">5</span>
+              <span class="step-title">Render Tree</span>
+            </div>
+            
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            
+            <div class="pipeline-step" data-step="layout">
+              <span class="step-num">6</span>
+              <span class="step-title">Layout</span>
+            </div>
+            
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            
+            <div class="pipeline-step" data-step="paint">
+              <span class="step-num">7</span>
+              <span class="step-title">Paint & Composite</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="pipeline-details" class="pipeline-details-box">
+          <div class="placeholder-text">
+            <i class="fa-solid fa-mouse-pointer"></i> Select a rendering pipeline node to inspect details.
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <footer class="app-footer">
+    <p>AetherTask &copy; 2026. Designed with minimal, document-centered aesthetics for clean presentation.</p>
+  </footer>
+
+  <script src="app.js?v=2"></script>
+</body>
+</html>
